@@ -9,6 +9,17 @@ jobs:
         with: { distribution: temurin, java-version: 21 }
       - uses: gradle/actions/setup-gradle@v4
       - run: chmod +x gradlew && ./gradlew ":1.21.11:build" --stacktrace
+      - name: Inspect Minecraft API
+        if: always()
+        run: |
+          J=$(find ~/.gradle/caches/fabric-loom -name 'minecraft-merged*.jar' -o -name 'minecraft-client*.jar' 2>/dev/null | grep -v sources | head -3)
+          echo "jars: $J"
+          for j in $J; do
+            for c in net.minecraft.client.gui.components.ChatComponent net.minecraft.client.gui.screens.ChatScreen 'net.minecraft.client.GuiMessage$Line'; do
+              echo "=== $c in $j"; javap -p -cp $j $c 2>&1 | head -80
+            done
+            echo "=== GuiGraphics blit-ish"; javap -p -cp $j net.minecraft.client.gui.GuiGraphics 2>&1 | grep -i "blit\|pose\|fillGradient\|drawCenteredString\|centeredText"
+          done
       - uses: actions/upload-artifact@v4
         if: always()
         with:

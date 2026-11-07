@@ -208,8 +208,10 @@ object UndoMixinHelper {
             id = recordId,
             //? if <= 1.21.5
             /*lastChangedTick = player.server.tickCount,*/
-            //? if >= 1.21.6
+            //? if >= 1.21.6 && < 1.21.11
             lastChangedTick = player.server!!.tickCount,
+            //? if >= 1.21.11
+            /*lastChangedTick = player.level().server.tickCount,*/
             cause = cause
         )
         undoRecordsMap[recordId] = undoRecord
