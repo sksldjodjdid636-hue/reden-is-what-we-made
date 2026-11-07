@@ -4,11 +4,20 @@ import com.github.zly2006.reden.Reden
 import com.github.zly2006.reden.gui.componments.WebTextureComponent
 import com.github.zly2006.reden.utils.multiver.Text
 import io.wispforest.owo.ui.base.BaseOwoScreen
+//? if < 1.21.11
 import io.wispforest.owo.ui.component.Components
+//? if >= 1.21.11
+/*import io.wispforest.owo.ui.component.UIComponents as Components*/
+//? if < 1.21.11
 import io.wispforest.owo.ui.container.Containers
+//? if >= 1.21.11
+/*import io.wispforest.owo.ui.container.UIContainers as Containers*/
 import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.container.ScrollContainer
 import io.wispforest.owo.ui.core.*
+//? if >= 1.21.11
+/*import io.wispforest.owo.ui.core.OwoUIGraphics as OwoUIDrawContext
+import io.wispforest.owo.ui.core.UIComponent as Component*/
 import kotlinx.serialization.Serializable
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft

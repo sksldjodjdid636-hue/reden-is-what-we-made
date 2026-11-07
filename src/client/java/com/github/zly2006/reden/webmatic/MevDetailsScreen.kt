@@ -10,12 +10,21 @@ import fi.dy.masa.litematica.gui.widgets.WidgetSchematicBrowser
 import fi.dy.masa.malilib.gui.widgets.WidgetDirectoryEntry
 import fi.dy.masa.malilib.gui.widgets.WidgetFileBrowserBase.DirectoryEntry
 import io.wispforest.owo.ui.base.BaseOwoScreen
+//? if < 1.21.11
 import io.wispforest.owo.ui.component.Components
+//? if >= 1.21.11
+/*import io.wispforest.owo.ui.component.UIComponents as Components*/
 import io.wispforest.owo.ui.component.LabelComponent
+//? if < 1.21.11
 import io.wispforest.owo.ui.container.Containers
+//? if >= 1.21.11
+/*import io.wispforest.owo.ui.container.UIContainers as Containers*/
 import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.container.ScrollContainer
 import io.wispforest.owo.ui.core.*
+//? if >= 1.21.11
+/*import io.wispforest.owo.ui.core.OwoUIGraphics as OwoUIDrawContext
+import io.wispforest.owo.ui.core.UIComponent as Component*/
 import net.minecraft.ChatFormatting
 //? if < 1.21.11
 import net.minecraft.Util

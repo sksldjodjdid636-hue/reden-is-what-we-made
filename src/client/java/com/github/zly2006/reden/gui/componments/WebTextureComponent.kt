@@ -4,9 +4,15 @@ import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
 import com.mojang.blaze3d.vertex.Tesselator
 import com.mojang.blaze3d.vertex.VertexFormat
+//? if < 1.21.11
 import io.wispforest.owo.ui.base.BaseComponent
+//? if >= 1.21.11
+/*import io.wispforest.owo.ui.base.BaseUIComponent as BaseComponent*/
 import io.wispforest.owo.ui.core.AnimatableProperty
+//? if < 1.21.11
 import io.wispforest.owo.ui.core.OwoUIDrawContext
+//? if >= 1.21.11
+/*import io.wispforest.owo.ui.core.OwoUIGraphics as OwoUIDrawContext*/
 import io.wispforest.owo.ui.core.PositionedRectangle
 import io.wispforest.owo.ui.core.Sizing
 import kotlin.math.min
