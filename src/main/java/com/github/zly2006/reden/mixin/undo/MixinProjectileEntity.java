@@ -47,7 +47,7 @@ public abstract class MixinProjectileEntity extends Entity implements UndoableAc
             at = @At("RETURN")
     )
     private void initUndoId(EntityType<?> entityType, Level level, CallbackInfo ci) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             PlayerData.UndoRecord recording = UndoMixinHelper.INSTANCE.getRecording();
             if (recording != null) {
                 DebugKt.debugLogger.invoke("Projectile spawned, adding it into record " + recording.getId());

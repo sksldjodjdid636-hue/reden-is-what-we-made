@@ -25,7 +25,7 @@ public abstract class MixinTntEntity extends Entity implements UndoableAccess {
     )
     private void onInit(EntityType<?> entityType, Level level, CallbackInfo ci) {
         PlayerData.UndoRecord recording = UndoMixinHelper.INSTANCE.getRecording();
-        if (!level.isClientSide && recording != null) {
+        if (!level.isClientSide() && recording != null) {
             DebugKt.debugLogger.invoke("TNT spawned, adding it into record " + recording.getId());
             setUndoId$reden(recording.getId());
         }

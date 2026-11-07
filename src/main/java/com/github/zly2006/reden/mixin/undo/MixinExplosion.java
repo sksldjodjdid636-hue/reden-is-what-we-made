@@ -30,7 +30,7 @@ public class MixinExplosion implements UndoableAccess {
             at = @At("RETURN")
     )
     private void onInit(CallbackInfo ci) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         PlayerData.UndoRecord recording = UndoMixinHelper.INSTANCE.getRecording();
         if (recording != null) {
             DebugKt.debugLogger.invoke("Explosion happened, adding it into record "+ recording.getId());
@@ -40,25 +40,25 @@ public class MixinExplosion implements UndoableAccess {
 
     @Inject(method = "finalizeExplosion", at = @At("HEAD"))
     private void beforeAffectWorld(boolean particles, CallbackInfo ci) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         UndoMixinHelper.pushRecord(undoId, () -> "explosion.blocks");
     }
 
     @Inject(method = "finalizeExplosion", at = @At("RETURN"))
     private void afterAffectWorld(boolean particles, CallbackInfo ci) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         UndoMixinHelper.popRecord(() -> "explosion.blocks");
     }
 
     @Inject(method = "explode", at = @At("HEAD"))
     private void beforeDamageEntities(CallbackInfo ci) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         UndoMixinHelper.pushRecord(undoId, () -> "explosion.entities");
     }
 
     @Inject(method = "explode", at = @At("RETURN"))
     private void afterDamageEntities(CallbackInfo ci) {
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         UndoMixinHelper.popRecord(() -> "explosion.entities");
     }
     *///?} else {

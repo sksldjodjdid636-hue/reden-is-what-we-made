@@ -40,7 +40,7 @@ public abstract class MixinBlockEntity implements BlockEntityInterface {
 
     @Override
     public void saveLastNbt$reden() {
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             DebugKt.debugLogger.invoke("before saving lastNBT at " + worldPosition.toShortString() + ", nbt=" + lastSavedNbt + ", components=" + components);
             if (lastSaveTime == level.getServer().getTickCount()) {
                 return;
