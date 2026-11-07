@@ -14,8 +14,9 @@ jobs:
         run: |
           M=~/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft
           CP=$(ls $M/minecraft-clientonly/*/*.jar $M/minecraft-common/*/*.jar | tr '\n' ':')
-          javap -p -cp "$CP" net.minecraft.client.renderer.texture.AbstractTexture net.minecraft.client.renderer.texture.DynamicTexture net.minecraft.client.input.InputWithModifiers com.mojang.blaze3d.textures.GpuSampler 2>&1 | head -70
-          echo "=== samplers"; javap -p -cp "$CP" com.mojang.blaze3d.systems.RenderSystem 2>&1 | grep -i "sampler"
+          O=$(find ~/.gradle/caches -name 'owo-lib-0.13*.jar' | grep -v sources | head -1)
+          echo "owo jar: $O"
+          unzip -l "$O" | awk '{print $4}' | grep -E "^io/wispforest/owo/ui/(base|component|container|core|parsing)/[A-Za-z]*\.class$" | sort | head -120
       - uses: actions/upload-artifact@v4
         if: always()
         with:
