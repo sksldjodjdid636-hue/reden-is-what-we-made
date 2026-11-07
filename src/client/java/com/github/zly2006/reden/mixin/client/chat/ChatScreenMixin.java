@@ -9,6 +9,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
+//? if >= 1.21.11 {
+/*import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+*///?}
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import org.jetbrains.annotations.Nullable;
@@ -44,10 +48,21 @@ public abstract class ChatScreenMixin extends Screen {
     }
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
+    //? if < 1.21.11 {
     private void mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+    //?} else {
+    /*private void mouseClicked(MouseButtonEvent event, boolean doubleClick, CallbackInfoReturnable<Boolean> cir) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        int button = event.button();
+    *///?}
         if (quickMenuWidget != null) {
             // highest priority
+            //? if < 1.21.11 {
             if (quickMenuWidget.mouseClicked(mouseX, mouseY, button)) {
+            //?} else {
+            /*if (quickMenuWidget.mouseClicked(event, doubleClick)) {
+            *///?}
                 cir.setReturnValue(true);
                 return;
             }
@@ -85,9 +100,16 @@ public abstract class ChatScreenMixin extends Screen {
         return null;
     }
 
+    //? if < 1.21.11 {
     @Inject(method = "keyPressed", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"), cancellable = true)
     private void ct$keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
         if (ChatScreen.hasControlDown()) {
+    //?} else {
+    /*@Inject(method = "keyPressed", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(Lnet/minecraft/client/input/KeyEvent;)Z"), cancellable = true)
+    private void ct$keyPressed(KeyEvent event, CallbackInfoReturnable<Boolean> cir) {
+        int keyCode = event.key();
+        if (event.hasControlDown()) {
+    *///?}
             if (keyCode == GLFW.GLFW_KEY_UP) {
                 Minecraft.getInstance().gui.getChat().scrollChat(1);
                 cir.setReturnValue(true);

@@ -1,6 +1,9 @@
 package com.github.zly2006.reden.mixin.client.greenStone;
 
+//? if < 1.21.11
 import net.minecraft.Util;
+//? if >= 1.21.11
+/*import net.minecraft.util.Util;*/
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.RedStoneWireBlock;

@@ -3,7 +3,10 @@ package com.github.zly2006.reden;
 import com.github.zly2006.reden.utils.UtilsKt;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+//? if < 1.21.11
 import net.minecraft.resources.ResourceLocation;
+//? if >= 1.21.11
+/*import net.minecraft.resources.Identifier;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.github.zly2006.reden.network.ChannelsKt;
@@ -41,7 +44,13 @@ public class Reden implements ModInitializer {
         };
     }
 
+    //? if < 1.21.11 {
     public static ResourceLocation identifier(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
+    //?} else {
+    /*public static Identifier identifier(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
+    }
+    *///?}
 }

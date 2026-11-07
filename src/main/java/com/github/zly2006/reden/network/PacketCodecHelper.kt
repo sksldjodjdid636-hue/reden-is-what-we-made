@@ -10,7 +10,10 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+//? if < 1.21.11
 import net.minecraft.resources.ResourceLocation
+//? if >= 1.21.11
+/*import net.minecraft.resources.Identifier*/
 import kotlin.reflect.typeOf
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -39,7 +42,10 @@ interface PacketCodecHelper<T : CustomPacketPayload> {
 
 @OptIn(ExperimentalSerializationApi::class)
 @Suppress("FunctionName")
+//? if < 1.21.11
 inline fun <reified T : CustomPacketPayload> PacketCodec(id: ResourceLocation): PacketCodecHelper<T> {
+//? if >= 1.21.11
+/*inline fun <reified T : CustomPacketPayload> PacketCodec(id: Identifier): PacketCodecHelper<T> {*/
     val type = typeOf<T>()
     return object : PacketCodecHelper<T> {
         override val ID = CustomPacketPayload.Type<T>(id)

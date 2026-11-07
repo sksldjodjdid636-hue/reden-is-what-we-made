@@ -7,6 +7,8 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
+//? if >= 1.21.11
+/*import net.minecraft.client.input.MouseButtonEvent;*/
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
@@ -108,8 +110,16 @@ public abstract class QuickMenuWidget implements NarratableEntry, Renderable, Gu
         context.pose().popMatrix();
     }
 
+    //? if < 1.21.11 {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    //?} else {
+    /*@Override
+    public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        int button = event.button();
+    *///?}
         if (entries.isEmpty()) {
             return false;
         }

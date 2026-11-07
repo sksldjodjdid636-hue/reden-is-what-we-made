@@ -17,7 +17,10 @@ import io.wispforest.owo.ui.container.FlowLayout
 import io.wispforest.owo.ui.container.ScrollContainer
 import io.wispforest.owo.ui.core.*
 import net.minecraft.ChatFormatting
+//? if < 1.21.11
 import net.minecraft.Util
+//? if >= 1.21.11
+/*import net.minecraft.util.Util*/
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.Screen
