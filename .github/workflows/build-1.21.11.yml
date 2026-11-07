@@ -14,11 +14,8 @@ jobs:
         run: |
           M=~/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft
           CP=$(ls $M/minecraft-clientonly/*/*.jar $M/minecraft-common/*/*.jar | tr '\n' ':')
-          for c in net.minecraft.client.gui.components.ChatComponent net.minecraft.client.gui.screens.ChatScreen 'net.minecraft.client.GuiMessage$Line' net.minecraft.client.gui.screens.Screen; do
-            echo "=== $c"; javap -p -cp "$CP" "$c" 2>&1 | head -90
-          done
-          echo "=== GuiGraphics"; javap -p -cp "$CP" net.minecraft.client.gui.GuiGraphics 2>&1 | grep -i "blit\|pose\|fillGradient\|drawCenteredString\|centeredText\|Matrix"
-          echo "=== Input classes"; javap -p -cp "$CP" net.minecraft.client.input.KeyEvent net.minecraft.client.input.MouseButtonEvent 2>&1 | head -40
+          javap -p -cp "$CP" net.minecraft.client.renderer.texture.AbstractTexture net.minecraft.client.renderer.texture.DynamicTexture net.minecraft.client.input.InputWithModifiers com.mojang.blaze3d.textures.GpuSampler 2>&1 | head -70
+          echo "=== samplers"; javap -p -cp "$CP" com.mojang.blaze3d.systems.RenderSystem 2>&1 | grep -i "sampler"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
