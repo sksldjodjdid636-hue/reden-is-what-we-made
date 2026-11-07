@@ -1,5 +1,7 @@
 name: Build 1.21.11
 on: [push, workflow_dispatch]
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,17 +11,17 @@ jobs:
         with: { distribution: temurin, java-version: 21 }
       - uses: gradle/actions/setup-gradle@v4
       - run: chmod +x gradlew && ./gradlew ":1.21.11:build" --stacktrace
-      - name: Inspect Minecraft API
-        if: always()
-        run: |
-          M=~/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft
-          CP=$(ls $M/minecraft-clientonly/*/*.jar $M/minecraft-common/*/*.jar | tr '\n' ':')
-          M=~/.gradle/caches/fabric-loom/minecraftMaven/net/minecraft
-          CP=$(ls $M/minecraft-clientonly/*/*.jar $M/minecraft-common/*/*.jar | tr '\n' ':')
-          javap -p -cp "$CP" net.minecraft.client.Minecraft | grep -i "service\|getUser\|user()"
-          javap -p -cp "$CP" net.minecraft.client.Minecraft | grep -i "Services"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: reden-1.21.11
           path: versions/1.21.11/build/libs/*.jar
+      - name: Publish release with the jar
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          JAR=$(ls versions/1.21.11/build/libs/*.jar | grep -v 'sources\|dev' | head -1)
+          echo "Releasing $JAR"
+          gh release delete mc-1.21.11 --yes --cleanup-tag 2>/dev/null || true
+          gh release create mc-1.21.11 "$JAR" --title "Reden for Minecraft 1.21.11 (unofficial port)" --notes "Unofficial, untested first port. Fabric 1.21.11. Needs Fabric API, Fabric Language Kotlin, malilib, litematica and owo-lib." --target ${{ github.sha }}
