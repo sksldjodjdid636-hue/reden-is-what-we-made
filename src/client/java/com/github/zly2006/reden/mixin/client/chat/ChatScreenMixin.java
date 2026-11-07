@@ -28,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChatScreen.class)
 public abstract class ChatScreenMixin extends Screen {
+    //? if < 1.21.11
     @Shadow @Nullable protected abstract Style getComponentStyleAt(double d, double e);
     @Unique
     QuickMenuWidget quickMenuWidget = null;
@@ -36,6 +37,7 @@ public abstract class ChatScreenMixin extends Screen {
         super(title);
     }
 
+    //? if < 1.21.11 {
     @Redirect(method = "keyPressed", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
     private void keyPressed(Minecraft client, Screen screen) {
         if (screen == null) {
@@ -46,6 +48,7 @@ public abstract class ChatScreenMixin extends Screen {
             client.setScreen(screen);
         }
     }
+    //?}
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
     //? if < 1.21.11 {
@@ -71,7 +74,10 @@ public abstract class ChatScreenMixin extends Screen {
             Minecraft client = Minecraft.getInstance();
             GuiMessage.Line line = reden$geMessageAt(mouseX, mouseY);
             if (line != null && MalilibSettingsKt.CHAT_RIGHT_CLICK_MENU.getBooleanValue()) {
+                //? if < 1.21.11
                 rightClickMenu((int) mouseX, (int) mouseY, client, line, getComponentStyleAt(mouseX, mouseY));
+                //? if >= 1.21.11
+                /*rightClickMenu((int) mouseX, (int) mouseY, client, line, null);*/
                 cir.setReturnValue(true);
             }
         }
@@ -92,12 +98,17 @@ public abstract class ChatScreenMixin extends Screen {
 
     @Unique
     private GuiMessage.Line reden$geMessageAt(double x, double y) {
+        //? if < 1.21.11 {
         ChatComponent chat = Minecraft.getInstance().gui.getChat();
         int i = chat.getMessageLineIndexAt(0, chat.screenToChatY(y));
         if (i >= 0 && i < chat.trimmedMessages.size()) {
             return chat.trimmedMessages.get(i);
         }
         return null;
+        //?} else {
+        /*// 1.21.11 removed ChatComponent hit-testing helpers; right-click chat menu is unavailable here.
+        return null;
+        *///?}
     }
 
     //? if < 1.21.11 {

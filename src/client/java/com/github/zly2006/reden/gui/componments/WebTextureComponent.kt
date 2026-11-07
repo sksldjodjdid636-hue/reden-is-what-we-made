@@ -135,6 +135,8 @@ open class WebTextureComponent(
         context.submitBlit(
             net.minecraft.client.renderer.RenderPipelines.GUI_TEXTURED,
             texture.textureView,
+            //? if >= 1.21.11
+            /*texture.sampler,*/
             x1,
             y1,
             x2,
