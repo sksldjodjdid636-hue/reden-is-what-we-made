@@ -291,7 +291,10 @@ fun updateOnlineInfo(client: Minecraft): Boolean {
         initHeartBeat()
     }
     try {
+        //? if < 1.21.11
         client.minecraftSessionService.joinServer(
+        //? if >= 1.21.11
+        /*client.services().sessionService().joinServer(*/
             client.user.profileId,
             client.user.accessToken,
             "3cb49a79c3af1f1dba6c56eddd760ac7d50c518a"
@@ -369,7 +372,10 @@ fun redenSetup(client: Minecraft) {
                 }
             )
             try {
-                client.minecraftSessionService.joinServer(
+                //? if < 1.21.11
+        client.minecraftSessionService.joinServer(
+        //? if >= 1.21.11
+        /*client.services().sessionService().joinServer(*/
                     client.user.profileId,
                     client.user.accessToken,
                     "3cb49a79c3af1f1dba6c56eddd760ac7d50c518a"

@@ -70,7 +70,10 @@ class MevScreen : BaseOwoScreen<FlowLayout>() {
             )
             gap(5)
             margins(Insets.vertical(3))
+            //? if < 1.21.11
             mouseDown().subscribe { _, _, b ->
+            //? if >= 1.21.11
+            /*mouseDown().subscribe { event, _ -> val b = event.button()*/
                 if (b == 0) {
                     client!!.setScreen(MevDetailsScreen(this@MevScreen, mev))
                     true

@@ -118,7 +118,10 @@ class MevDetailsScreen(val parent: Screen?, val info: ItemDto) : BaseOwoScreen<F
             mouseLeave().subscribe {
                 tooltip(null)
             }
+            //? if < 1.21.11
             mouseDown().subscribe { _, _, b ->
+            //? if >= 1.21.11
+            /*mouseDown().subscribe { event, _ -> val b = event.button()*/
                 if (b == 0) {
                     Util.getPlatform().openUri("https://redenmc.com/${client.lang}/litematica/${info.key}")
                     true
@@ -158,7 +161,10 @@ class MevDetailsScreen(val parent: Screen?, val info: ItemDto) : BaseOwoScreen<F
                     this.child(Components.label(
                         Text.literal("点这里在 RedenMC 网站 上查看详情").withStyle(ChatFormatting.YELLOW)
                     ).apply {
+                        //? if < 1.21.11
                         mouseDown().subscribe { _, _, b ->
+                        //? if >= 1.21.11
+                        /*mouseDown().subscribe { event, _ -> val b = event.button()*/
                             if (b == 0) {
                                 Util.getPlatform().openUri("https://redenmc.com/${client.lang}/litematica/${info.key}")
                                 true
@@ -221,7 +227,10 @@ class MevDetailsScreen(val parent: Screen?, val info: ItemDto) : BaseOwoScreen<F
         }
 
         init {
+            //? if < 1.21.11
             mouseDown().subscribe { _, _, b ->
+            //? if >= 1.21.11
+            /*mouseDown().subscribe { event, _ -> val b = event.button()*/
                 if (b == 0) {
                     val parent = Path("schematics", "reden-downloads")
                     parent.createDirectories()
