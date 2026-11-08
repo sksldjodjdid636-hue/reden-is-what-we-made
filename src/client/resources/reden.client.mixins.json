@@ -14,7 +14,7 @@
     "greenStone.MixinRedstone"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   },
   "mixins": [
     "noTimeOut.MixinReadTimeoutHandler"
