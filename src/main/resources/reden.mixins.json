@@ -27,6 +27,6 @@
     "undo.helper.NoOpMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   }
 }
