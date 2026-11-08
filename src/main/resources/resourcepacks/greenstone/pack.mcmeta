@@ -2,6 +2,8 @@
   "pack": {
     "description": "Greenstone!",
     "pack_format": 22,
+    "min_format": 22,
+    "max_format": 100,
     "supported_formats": [
       22,
       100

@@ -12,6 +12,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//? if >= 1.21.11
+/*import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;*/
 // @formatter:off
 //? if <= 1.21.1 {
 /*import net.minecraft.world.level.Level;
@@ -76,6 +78,7 @@ public class MixinExplosion implements UndoableAccess {
         }
     }
 
+    //? if < 1.21.11 {
     @Inject(method = "explode", at = @At("HEAD"))
     private void beforeDamageEntities(CallbackInfo ci) {
         UndoMixinHelper.pushRecord(undoId, () -> "explosion");
@@ -85,6 +88,17 @@ public class MixinExplosion implements UndoableAccess {
     private void afterDamageEntities(CallbackInfo ci) {
         UndoMixinHelper.popRecord(() -> "explosion");
     }
+    //?} else {
+    /*@Inject(method = "explode", at = @At("HEAD"))
+    private void beforeDamageEntities(CallbackInfoReturnable<Integer> cir) {
+        UndoMixinHelper.pushRecord(undoId, () -> "explosion");
+    }
+
+    @Inject(method = "explode", at = @At("RETURN"))
+    private void afterDamageEntities(CallbackInfoReturnable<Integer> cir) {
+        UndoMixinHelper.popRecord(() -> "explosion");
+    }
+    *///?}
     //?}
 
     @Override
